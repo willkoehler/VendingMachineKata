@@ -47,6 +47,23 @@ describe CoinBox do
       coin_box.insert_coin(weight: :quarter_weight, size: :counterfeit_size)
       expect(coin_box.total).to eq(0)
     end
+    
+    it "should accepts a combination of coins" do
+      coin_box.insert_coin(weight: :nickel_weight, size: :nickel_size)
+      expect(coin_box.total).to eq(0.05)
+      coin_box.insert_coin(weight: :nickel_weight, size: :nickel_size)
+      expect(coin_box.total).to eq(0.10)
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      expect(coin_box.total).to eq(0.10)
+      coin_box.insert_coin(weight: :dime_weight, size: :dime_size)
+      expect(coin_box.total).to eq(0.20)
+      coin_box.insert_coin(weight: :counterfeit_weight, size: :quarter_size)
+      expect(coin_box.total).to eq(0.20)
+      coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
+      expect(coin_box.total).to eq(0.45)
+      coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
+      expect(coin_box.total).to eq(0.70)
+    end
   end
   
 end
