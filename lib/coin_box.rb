@@ -7,6 +7,13 @@ class CoinBox
   end
   
   def insert_coin(coin)
-    @total += 0.05
+    case coin
+    when { weight: :nickel_weight, size: :nickel_size }
+      @total += 0.05
+    when { weight: :dime_weight, size: :dime_size }
+      @total += 0.10
+    else
+      # TODO reject coin
+    end
   end
 end
