@@ -12,6 +12,8 @@ class CoinBox
       @total += 0.05
     when { weight: :dime_weight, size: :dime_size }
       @total += 0.10
+    when { weight: :quarter_weight, size: :quarter_size }
+      @total += 0.25
     else
       # TODO reject coin
     end

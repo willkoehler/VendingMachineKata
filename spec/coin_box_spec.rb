@@ -25,6 +25,17 @@ describe CoinBox do
       coin_box.insert_coin(weight: :dime_weight, size: :dime_size)
       expect(coin_box.total).to eq(0.20)
     end
+
+    it "should increment total by 0.25 when a quarter is inserted" do
+      coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
+      expect(coin_box.total).to eq(0.25)
+    end
+
+    it "should increment total by 0.25 for each quarter that's inserted" do
+      coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
+      coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
+      expect(coin_box.total).to eq(0.50)
+    end
   end
   
 end
