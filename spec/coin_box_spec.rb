@@ -36,6 +36,17 @@ describe CoinBox do
       coin_box.insert_coin(weight: :quarter_weight, size: :quarter_size)
       expect(coin_box.total).to eq(0.50)
     end
+    
+    it "should reject pennies" do
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      expect(coin_box.total).to eq(0)
+    end
+    
+    it "should reject counterfeit coins" do
+      coin_box.insert_coin(weight: :counterfeit_weight, size: :quarter_size)
+      coin_box.insert_coin(weight: :quarter_weight, size: :counterfeit_size)
+      expect(coin_box.total).to eq(0)
+    end
   end
   
 end
