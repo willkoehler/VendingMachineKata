@@ -18,5 +18,10 @@ describe ProductDispenser do
       dispenser.dispense(:candy)
       expect(dispenser.check_bin).to eq([:candy])
     end
+  
+    it "should only dispense products that the vending machine sells" do
+      dispenser.dispense(:tofu)
+      expect(dispenser.check_bin).to eq([])
+    end
   end
 end
