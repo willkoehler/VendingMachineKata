@@ -71,5 +71,14 @@ describe CoinBox do
       coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
       expect(coin_box.check_coin_return).to eq([{ weight: :penny_weight, size: :penny_size }])
     end
+
+    it "should hold multiple rejected coins" do
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      coin_box.insert_coin(weight: :counterfeit_weight, size: :quarter_size)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :penny_weight, size: :penny_size },
+        { weight: :counterfeit_weight, size: :quarter_size }
+      ])
+    end
   end
 end

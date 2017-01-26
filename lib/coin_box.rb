@@ -4,6 +4,7 @@ class CoinBox
   
   def initialize
     @total = 0
+    @coin_return_contents = []
   end
   
   def insert_coin(coin)
@@ -15,11 +16,20 @@ class CoinBox
     when { weight: :quarter_weight, size: :quarter_size }
       @total += 0.25
     else
-      # TODO reject coin
+      put_in_coin_return(coin)
     end
   end
   
   def check_coin_return
-    [{ weight: :penny_weight, size: :penny_size }]
+    @coin_return_contents
   end
+  
+  private
+
+    # In a real vending machine, the coin return would be a physical thing and we
+    # wouldn't need to track it's contents or have a function to check it's contents.
+    # But for this exercise, we are going to model a coin return in code.
+    def put_in_coin_return(coin)
+      @coin_return_contents << coin
+    end
 end
