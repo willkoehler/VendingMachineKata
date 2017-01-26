@@ -66,4 +66,10 @@ describe CoinBox do
     end
   end
   
+  describe "#coin_return" do
+    it "should contain rejected coins" do
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      expect(coin_box.check_coin_return).to eq([{ weight: :penny_weight, size: :penny_size }])
+    end
+  end
 end

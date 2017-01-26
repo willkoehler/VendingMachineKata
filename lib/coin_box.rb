@@ -18,4 +18,8 @@ class CoinBox
       # TODO reject coin
     end
   end
+  
+  def check_coin_return
+    [{ weight: :penny_weight, size: :penny_size }]
+  end
 end
