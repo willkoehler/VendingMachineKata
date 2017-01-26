@@ -80,5 +80,11 @@ describe CoinBox do
         { weight: :counterfeit_weight, size: :quarter_size }
       ])
     end
+    
+    it "should clear the contents of the coin return" do
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      expect(coin_box.check_coin_return).to eq([{ weight: :penny_weight, size: :penny_size }])
+      expect(coin_box.check_coin_return).to eq([])
+    end
   end
 end
