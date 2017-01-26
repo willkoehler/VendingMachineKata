@@ -1,3 +1,5 @@
+# VendingMachine is the public interface of the vending machine.
+
 require 'forwardable'
 require 'display'
 require 'coin_box'
