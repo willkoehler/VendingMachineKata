@@ -1,6 +1,6 @@
 class ProductDispenser
   
-  Inventory = {
+  Products = {
     cola: 1.00,
     chips: 0.50,
     candy: 0.65
@@ -11,7 +11,7 @@ class ProductDispenser
   end
   
   def dispense(product)
-    @bin_contents << product if Inventory.include?(product)
+    @bin_contents << product if Products.include?(product)
   end
   
   def check_bin
