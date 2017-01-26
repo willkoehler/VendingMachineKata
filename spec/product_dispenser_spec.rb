@@ -24,4 +24,12 @@ describe ProductDispenser do
       expect(dispenser.check_bin).to eq([])
     end
   end
+  
+  describe "#check_bin" do
+    it "should clear the contents of the bin" do
+      dispenser.dispense(:cola)
+      expect(dispenser.check_bin).to eq([:cola])
+      expect(dispenser.check_bin).to eq([])
+    end
+  end
 end

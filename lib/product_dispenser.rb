@@ -11,6 +11,6 @@ class ProductDispenser
   end
   
   def check_bin
-    @bin_contents
+    @bin_contents.pop(@bin_contents.size)
   end
 end
