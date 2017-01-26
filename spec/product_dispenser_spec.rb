@@ -30,6 +30,11 @@ describe ProductDispenser do
       dispenser.dispense(:cola, 1.00)
       expect(dispenser.check_bin).to eq([:cola])
     end
+    
+    it "should return the product price when insufficient cash has been inserted" do
+      expect(dispenser.dispense(:cola, 0.75)).to eq(1.00)
+      expect(dispenser.dispense(:chips, 0.45)).to eq(0.50)
+    end
   end
   
   describe "#check_bin" do

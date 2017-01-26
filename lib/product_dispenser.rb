@@ -11,7 +11,9 @@ class ProductDispenser
   end
   
   def dispense(product, cash_inserted)
-    if Products[product] && Products[product] <= cash_inserted
+    if Products[product] && Products[product] > cash_inserted
+      Products[product]
+    else
       @bin_contents << product if Products.include?(product)
     end
   end
