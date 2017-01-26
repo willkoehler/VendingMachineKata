@@ -8,5 +8,10 @@ describe ProductDispenser do
       dispenser.dispense(:cola)
       expect(dispenser.check_bin).to eq([:cola])
     end
+
+    it "should dispense chips to the bin" do
+      dispenser.dispense(:chips)
+      expect(dispenser.check_bin).to eq([:chips])
+    end
   end
 end
