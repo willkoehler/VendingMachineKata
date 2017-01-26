@@ -10,8 +10,10 @@ class ProductDispenser
     @bin_contents = []
   end
   
-  def dispense(product)
-    @bin_contents << product if Products.include?(product)
+  def dispense(product, cash_inserted)
+    if Products[product] && Products[product] <= cash_inserted
+      @bin_contents << product if Products.include?(product)
+    end
   end
   
   def check_bin
