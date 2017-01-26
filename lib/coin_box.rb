@@ -21,9 +21,7 @@ class CoinBox
   end
   
   def check_coin_return
-    coin_return_copy = @coin_return_contents.clone
-    @coin_return_contents.clear
-    coin_return_copy
+    @coin_return_contents.pop(@coin_return_contents.size)
   end
   
   private
