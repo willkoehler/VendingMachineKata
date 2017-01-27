@@ -1,6 +1,9 @@
 class CoinBox
   
   attr_reader :total
+  Quarter = { weight: :quarter_weight, size: :quarter_size }
+  Dime = { weight: :dime_weight, size: :dime_size }
+  Nickel = { weight: :nickel_weight, size: :nickel_size }
   
   def initialize
     @total = 0
@@ -9,11 +12,11 @@ class CoinBox
   
   def insert_coin(coin)
     case coin
-    when { weight: :nickel_weight, size: :nickel_size }
+    when Nickel
       @total += 0.05
-    when { weight: :dime_weight, size: :dime_size }
+    when Dime
       @total += 0.10
-    when { weight: :quarter_weight, size: :quarter_size }
+    when Quarter
       @total += 0.25
     else
       put_in_coin_return(coin)
