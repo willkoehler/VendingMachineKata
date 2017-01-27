@@ -5,6 +5,8 @@ require 'vending_machine'
 describe VendingMachine do
   let(:vending_machine) { VendingMachine.new }
   
+  # ---- Accept Coins Feature ----
+  
   it "should have a display" do
     expect(vending_machine.read_display).to eq('INSERT COIN')
   end
@@ -24,6 +26,8 @@ describe VendingMachine do
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     expect(vending_machine.read_display).to eq('$0.40')
   end
+  
+  # ---- Select Product Feature ----
   
   it "should show the customer the product price when they attempt to buy a product without inserting coins" do
     # Start of transaction
@@ -87,6 +91,8 @@ describe VendingMachine do
     expect(vending_machine.check_dispenser_bin).to eq([:candy])
   end
   
+  # ---- Make Change Feature ----
+  
   it "should make change when selected product costs less than cash inserted" do
     # Start of transaction
     expect(vending_machine.read_display).to eq('INSERT COIN')
@@ -102,10 +108,12 @@ describe VendingMachine do
     expect(vending_machine.check_coin_return).to eq([{ weight: :dime_weight, size: :dime_size }])
   end
   
+  # ---- Other Integration Specs ----
+  
   it "should handle multiple transactions" do
     # Start of transaction
     expect(vending_machine.read_display).to eq('INSERT COIN')
-    # Insert sufficient cash for chips and buy them
+    # Insert cash for chips and buy them
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     expect(vending_machine.read_display).to eq('$0.50')
@@ -114,7 +122,7 @@ describe VendingMachine do
     expect(vending_machine.check_dispenser_bin).to eq([:chips])
     # Next customer arrives
     expect(vending_machine.read_display).to eq('INSERT COIN')
-    # Insert sufficient cash for the candy and buy it
+    # Insert cash for the candy and buy it
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
