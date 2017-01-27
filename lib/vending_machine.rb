@@ -39,7 +39,8 @@ class VendingMachine
       result = @dispenser.dispense(button, @coin_box.total)
       if result[:result] == :success
         @coin_box.make_change(result[:change_due])
-        @display.show_thank_you
+        @coin_box.reset
+        @display.end_of_transaction
       else
         @display.show_price(result[:price])
       end

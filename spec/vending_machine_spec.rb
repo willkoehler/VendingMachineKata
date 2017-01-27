@@ -101,6 +101,31 @@ describe VendingMachine do
     # Check for change
     expect(vending_machine.check_coin_return).to eq([{ weight: :dime_weight, size: :dime_size }])
   end
+  
+  it "should handle multiple transactions" do
+    # Start of transaction
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+    # Insert sufficient cash for chips and buy them
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    expect(vending_machine.read_display).to eq('$0.50')
+    vending_machine.press_chips_button
+    expect(vending_machine.read_display).to eq('THANK YOU')
+    expect(vending_machine.check_dispenser_bin).to eq([:chips])
+    # Next customer arrives
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+    # Insert sufficient cash for the candy and buy it
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
+    vending_machine.insert_coin(weight: :nickel_weight, size: :nickel_size)
+    expect(vending_machine.read_display).to eq('$0.65')
+    vending_machine.press_candy_button
+    expect(vending_machine.read_display).to eq('THANK YOU')
+    expect(vending_machine.check_dispenser_bin).to eq([:candy])
+    # Next customer arrives...
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+  end
 
   it "should allow customer to buy a product - complete scenario" do
     # Start of transaction

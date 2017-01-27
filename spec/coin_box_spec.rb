@@ -3,6 +3,20 @@ require 'coin_box'
 describe CoinBox do
   let(:coin_box) { CoinBox.new }
   
+  describe "#reset" do
+    it "should reset the total" do
+      coin_box.insert_coin(weight: :nickel_weight, size: :nickel_size)
+      expect(coin_box.total).to eq(0.05)
+      coin_box.reset
+      expect(coin_box.total).to eq(0)
+    end
+    it "should not effect the contents of the coin return" do
+      coin_box.insert_coin(weight: :penny_weight, size: :penny_size)
+      coin_box.reset
+      expect(coin_box.check_coin_return).to eq([{ weight: :penny_weight, size: :penny_size }])
+    end
+  end
+  
   describe "#insert_coin" do
     it "should increment total by 0.05 when a nickel is inserted" do
       coin_box.insert_coin(weight: :nickel_weight, size: :nickel_size)

@@ -12,6 +12,10 @@ class CoinBox
     @coin_return_contents = []
   end
   
+  def reset
+    @total = BigDecimal.new(0)
+  end
+  
   def insert_coin(coin)
     case coin
     when Nickel

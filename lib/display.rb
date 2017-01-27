@@ -14,8 +14,9 @@ class Display
     @contents = "PRICE $%.2f" % [price]
   end
   
-  def show_thank_you
+  def end_of_transaction
     @contents = 'THANK YOU'
+    set_default_contents('INSERT COIN')
   end
 
   def read

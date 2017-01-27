@@ -25,9 +25,9 @@ describe Display do
     end
   end
   
-  describe "#thank_you" do
-    it "should show 'THANK YOU' on the display" do
-      display.show_thank_you
+  describe "#end_of_transaction" do
+    it "should read 'THANK YOU' on the display" do
+      display.end_of_transaction
       expect(display.read).to eq('THANK YOU')
     end
   end
@@ -40,12 +40,6 @@ describe Display do
         expect(display.read).to eq('INSERT COIN')
         expect(display.read).to eq('INSERT COIN')
       end
-      it "should read INSERT COIN the next time it's read after THANK YOU is displayed" do
-        display.show_thank_you
-        expect(display.read).to eq('THANK YOU')
-        expect(display.read).to eq('INSERT COIN')
-        expect(display.read).to eq('INSERT COIN')
-      end
     end
     context "when money has been inserted" do
       before { display.show_total_cash_inserted(0.55) }
@@ -55,12 +49,12 @@ describe Display do
         expect(display.read).to eq('$0.55')
         expect(display.read).to eq('$0.55')
       end
-      it "should show total cash inserted the next time it's read after THANK YOU is displayed" do
-        display.show_thank_you
-        expect(display.read).to eq('THANK YOU')
-        expect(display.read).to eq('$0.55')
-        expect(display.read).to eq('$0.55')
-      end
+    end
+    it "should read 'INSERT COIN' the next time it's read after the end of a transaction" do
+      display.end_of_transaction
+      expect(display.read).to eq('THANK YOU')
+      expect(display.read).to eq('INSERT COIN')
+      expect(display.read).to eq('INSERT COIN')
     end
   end
 end
