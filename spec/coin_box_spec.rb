@@ -87,4 +87,64 @@ describe CoinBox do
       expect(coin_box.check_coin_return).to eq([])
     end
   end
+  
+  describe "#return_change" do
+    it "should put requested change in the coin return" do
+      coin_box.make_change(0.05)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :nickel_weight, size: :nickel_size }
+      ])
+    end
+    it "should use quarters, nickels, and dimes to make change" do
+      coin_box.make_change(0.40)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :dime_weight, size: :dime_size },
+        { weight: :nickel_weight, size: :nickel_size }
+      ])
+    end
+    it "should make change using the largest coins possible" do
+      coin_box.make_change(0.50)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size }
+      ])
+      coin_box.make_change(0.55)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :nickel_weight, size: :nickel_size }
+      ])
+      coin_box.make_change(0.60)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :dime_weight, size: :dime_size }
+      ])
+      coin_box.make_change(0.65)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :dime_weight, size: :dime_size },
+        { weight: :nickel_weight, size: :nickel_size }
+      ])
+      coin_box.make_change(0.70)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :dime_weight, size: :dime_size },
+        { weight: :dime_weight, size: :dime_size }
+      ])
+      coin_box.make_change(0.75)
+      expect(coin_box.check_coin_return).to eq([
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size },
+        { weight: :quarter_weight, size: :quarter_size }
+      ])
+    end
+    it "shouldn't make change if no change is due" do
+      coin_box.make_change(0)
+      expect(coin_box.check_coin_return).to eq([])
+    end
+  end
 end
