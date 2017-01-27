@@ -10,7 +10,7 @@ describe Display do
   end
   
   describe "#show_total_cash_inserted" do
-    it "should update the display with the total cash inserted" do
+    it "should show total cash inserted on the display" do
       display.show_total_cash_inserted(0.55)
       expect(display.read).to eq('$0.55')
       display.show_total_cash_inserted(1.15)
@@ -19,7 +19,7 @@ describe Display do
   end
   
   describe "#show_price" do
-    it "should display a product price" do
+    it "should show a product price on the display" do
       display.show_price(0.65)
       expect(display.read).to eq('PRICE $0.65')
     end
