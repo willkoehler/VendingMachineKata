@@ -13,6 +13,10 @@ class Display
   def show_price(price)
     @contents = "PRICE $%.2f" % [price]
   end
+  
+  def show_thank_you
+    @contents = 'THANK YOU'
+  end
 
   def read
     current_contents = @contents

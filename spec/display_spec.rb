@@ -25,11 +25,24 @@ describe Display do
     end
   end
   
+  describe "#thank_you" do
+    it "should show 'THANK YOU' on the display" do
+      display.show_thank_you
+      expect(display.read).to eq('THANK YOU')
+    end
+  end
+  
   describe "display state" do
     context "when no money has been inserted" do
       it "should read INSERT COIN the next time it's read after product price is displayed" do
         display.show_price(0.65)
         expect(display.read).to eq('PRICE $0.65')
+        expect(display.read).to eq('INSERT COIN')
+        expect(display.read).to eq('INSERT COIN')
+      end
+      it "should read INSERT COIN the next time it's read after THANK YOU is displayed" do
+        display.show_thank_you
+        expect(display.read).to eq('THANK YOU')
         expect(display.read).to eq('INSERT COIN')
         expect(display.read).to eq('INSERT COIN')
       end
@@ -39,6 +52,12 @@ describe Display do
       it "should show total cash inserted the next time it's read after product price is displayed" do
         display.show_price(0.65)
         expect(display.read).to eq('PRICE $0.65')
+        expect(display.read).to eq('$0.55')
+        expect(display.read).to eq('$0.55')
+      end
+      it "should show total cash inserted the next time it's read after THANK YOU is displayed" do
+        display.show_thank_you
+        expect(display.read).to eq('THANK YOU')
         expect(display.read).to eq('$0.55')
         expect(display.read).to eq('$0.55')
       end
