@@ -1,9 +1,11 @@
+require 'bigdecimal'
+
 class ProductDispenser
   
   Products = {
-    cola: { price: 1.00 },
-    chips: { price: 0.50 },
-    candy: { price: 0.65 }
+    cola: { price: BigDecimal.new(1.00, 2) },
+    chips: { price: BigDecimal.new(0.50, 2) },
+    candy: { price: BigDecimal.new(0.65, 2) }
   }
   
   def initialize
@@ -17,7 +19,7 @@ class ProductDispenser
       { result: :insufficient_cash, price: Products[product][:price] }
     else
       @bin_contents << product
-      { result: :success }
+      { result: :success, change_due: cash_inserted - Products[product][:price] }
     end
   end
   

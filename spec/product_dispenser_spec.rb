@@ -5,17 +5,17 @@ describe ProductDispenser do
   
   describe "#dispense" do
     it "should dispense cola to the bin" do
-      expect(dispenser.dispense(:cola, 1.00)).to eq({ result: :success })
+      expect(dispenser.dispense(:cola, 1.00)).to eq({ result: :success, change_due: 0.00 })
       expect(dispenser.check_bin).to eq([:cola])
     end
 
     it "should dispense chips to the bin" do
-      expect(dispenser.dispense(:chips, 0.50)).to eq({ result: :success })
+      expect(dispenser.dispense(:chips, 0.50)).to eq({ result: :success, change_due: 0.00 })
       expect(dispenser.check_bin).to eq([:chips])
     end
 
     it "should dispense candy to the bin" do
-      expect(dispenser.dispense(:candy, 0.65)).to eq({ result: :success })
+      expect(dispenser.dispense(:candy, 0.65)).to eq({ result: :success, change_due: 0.00 })
       expect(dispenser.check_bin).to eq([:candy])
     end
   
@@ -34,6 +34,11 @@ describe ProductDispenser do
     it "should return the product price when insufficient cash has been inserted" do
       expect(dispenser.dispense(:cola, 0.75)).to eq({ result: :insufficient_cash, price: 1.00 })
       expect(dispenser.dispense(:chips, 0.45)).to eq({ result: :insufficient_cash, price: 0.50 })
+    end
+    
+    it "should return change due when additional cash has been inserted" do
+      expect(dispenser.dispense(:candy, 0.75)).to eq({ result: :success, change_due: 0.10 })
+      expect(dispenser.dispense(:chips, 0.65)).to eq({ result: :success, change_due: 0.15 })
     end
   end
   
