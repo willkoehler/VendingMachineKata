@@ -28,13 +28,19 @@ class VendingMachine
   def check_dispenser_bin
     @dispenser.check_bin
   end
+
+  def press_cola_button() press_button(:cola) end
+  def press_chips_button() press_button(:chips) end
+
+  private
   
-  def press_cola_button
-    result = @dispenser.dispense(:cola, @coin_box.total)
-    if result[:result] == :success
-      @display.show_thank_you
-    else
-      @display.show_price(result[:price])
+    def press_button(button)
+      result = @dispenser.dispense(button, @coin_box.total)
+      if result[:result] == :success
+        @display.show_thank_you
+      else
+        @display.show_price(result[:price])
+      end
     end
-  end
+  
 end
