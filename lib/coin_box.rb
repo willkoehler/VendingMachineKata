@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class CoinBox
   
   attr_reader :total
@@ -6,7 +8,7 @@ class CoinBox
   Nickel = { weight: :nickel_weight, size: :nickel_size }
   
   def initialize
-    @total = 0
+    @total = BigDecimal.new(0)
     @coin_return_contents = []
   end
   
