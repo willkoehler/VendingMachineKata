@@ -65,4 +65,22 @@ describe VendingMachine do
     expect(vending_machine.read_display).to eq('THANK YOU')
     expect(vending_machine.check_dispenser_bin).to eq([:chips])
   end
+
+  it "should allow customer to buy candy" do
+    # Start of transaction
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+    # Try to buy candy without inserting money
+    vending_machine.press_candy_button
+    expect(vending_machine.read_display).to eq('PRICE $0.65')
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+    # Insert sufficient cash for the candy and buy it
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
+    vending_machine.insert_coin(weight: :nickel_weight, size: :nickel_size)
+    expect(vending_machine.read_display).to eq('$0.65')
+    vending_machine.press_candy_button
+    expect(vending_machine.read_display).to eq('THANK YOU')
+    expect(vending_machine.check_dispenser_bin).to eq([:candy])
+  end
 end

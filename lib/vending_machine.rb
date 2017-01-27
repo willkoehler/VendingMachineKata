@@ -31,6 +31,7 @@ class VendingMachine
 
   def press_cola_button() press_button(:cola) end
   def press_chips_button() press_button(:chips) end
+  def press_candy_button() press_button(:candy) end
 
   private
   
