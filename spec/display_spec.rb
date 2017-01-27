@@ -34,5 +34,14 @@ describe Display do
         expect(display.read).to eq('INSERT COIN')
       end
     end
+    context "when money has been inserted" do
+      before { display.show_total_cash_inserted(0.55) }
+      it "should show total cash inserted the next time it's read after product price is displayed" do
+        display.show_price(0.65)
+        expect(display.read).to eq('PRICE $0.65')
+        expect(display.read).to eq('$0.55')
+        expect(display.read).to eq('$0.55')
+      end
+    end
   end
 end
