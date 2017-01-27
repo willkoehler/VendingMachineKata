@@ -13,6 +13,8 @@ class Display
   end
 
   def read
-    @contents
+    current_contents = @contents
+    @contents='INSERT COIN'
+    current_contents
   end
 end

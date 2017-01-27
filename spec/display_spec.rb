@@ -24,4 +24,15 @@ describe Display do
       expect(display.read).to eq('PRICE $0.65')
     end
   end
+  
+  describe "display state" do
+    context "when no money has been inserted" do
+      it "should read INSERT COIN the next time it's read after product price is displayed" do
+        display.show_price(0.65)
+        expect(display.read).to eq('PRICE $0.65')
+        expect(display.read).to eq('INSERT COIN')
+        expect(display.read).to eq('INSERT COIN')
+      end
+    end
+  end
 end
