@@ -86,6 +86,21 @@ describe VendingMachine do
     expect(vending_machine.read_display).to eq('THANK YOU')
     expect(vending_machine.check_dispenser_bin).to eq([:candy])
   end
+  
+  it "should make change when selected product costs less than cash inserted" do
+    # Start of transaction
+    expect(vending_machine.read_display).to eq('INSERT COIN')
+    # Insert $0.75 cash for the candy (which costs $0.65) and buy it
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
+    expect(vending_machine.read_display).to eq('$0.75')
+    vending_machine.press_candy_button
+    expect(vending_machine.read_display).to eq('THANK YOU')
+    expect(vending_machine.check_dispenser_bin).to eq([:candy])
+    # Check for change
+    expect(vending_machine.check_coin_return).to eq([{ weight: :dime_weight, size: :dime_size }])
+  end
 
   it "should allow customer to buy a product - complete scenario" do
     # Start of transaction
