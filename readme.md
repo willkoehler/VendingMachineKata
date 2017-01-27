@@ -13,7 +13,13 @@ classes are internal implementation.
 
 ## Steps to run the code
 
-Start by installing necessary gems
+This code requires a standard Ruby development environment. The basic components are:
+
+- **Ruby 2.1** (or newer).
+- **Build tools**. XCode or GCC and development libraries. Needed to build gems.
+- **Bundler 1.12** (or newer). This can be installed with `gem install bundler`
+
+Start by installing dependencies.
 
     cd [folder where you cloned the code]
     bundle
@@ -22,9 +28,9 @@ Then run the tests
 
     bin/rspec
 
-Or use guard to run the tests automatically as you work
+Or use Guard to run the tests automatically as you work
 
-    bundle exec guard
+    bin/guard
 
 ## TODO
 

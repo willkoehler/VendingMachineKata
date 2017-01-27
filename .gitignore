@@ -3,3 +3,6 @@
 
 # Ignore OSX files like:
 .DS_Store
+
+# Ignore gem lockfile. Allows guard to run on a larger variety of ruby versions
+Gemfile.lock
