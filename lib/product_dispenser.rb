@@ -11,10 +11,13 @@ class ProductDispenser
   end
   
   def dispense(product, cash_inserted)
-    if Products[product] && Products[product][:price] > cash_inserted
-      Products[product][:price]
+    if !Products[product]
+      { result: :not_found }
+    elsif Products[product][:price] > cash_inserted
+      { result: :insufficient_cash, price: Products[product][:price] }
     else
-      @bin_contents << product if Products.include?(product)
+      @bin_contents << product
+      { result: :success }
     end
   end
   
