@@ -148,15 +148,19 @@ describe VendingMachine do
     vending_machine.press_cola_button
     expect(vending_machine.read_display).to eq('PRICE $1.00')
     expect(vending_machine.read_display).to eq('$0.25')
-    # Insert sufficient cash for the cola and buy it
+    # Insert $1.05 for the cola (which costs $1.00) and buy it
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     vending_machine.insert_coin(weight: :quarter_weight, size: :quarter_size)
     vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
     vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
-    vending_machine.insert_coin(weight: :nickel_weight, size: :nickel_size)
-    expect(vending_machine.read_display).to eq('$1.00')
+    vending_machine.insert_coin(weight: :dime_weight, size: :dime_size)
+    expect(vending_machine.read_display).to eq('$1.05')
     vending_machine.press_cola_button
     expect(vending_machine.read_display).to eq('THANK YOU')
+    # Take product and change
     expect(vending_machine.check_dispenser_bin).to eq([:cola])
+    expect(vending_machine.check_coin_return).to eq([{ weight: :nickel_weight, size: :nickel_size }])
+    # Next customer arrives...
+    expect(vending_machine.read_display).to eq('INSERT COIN')
   end
 end
