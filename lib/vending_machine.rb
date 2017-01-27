@@ -2,12 +2,14 @@
 
 require 'display'
 require 'coin_box'
+require 'product_dispenser'
 
 class VendingMachine
   
   def initialize
     @display = Display.new
     @coin_box = CoinBox.new
+    @dispenser = ProductDispenser.new
   end
   
   def read_display
@@ -21,5 +23,18 @@ class VendingMachine
   
   def check_coin_return
     @coin_box.check_coin_return
+  end
+  
+  def check_dispenser_bin
+    @dispenser.check_bin
+  end
+  
+  def press_cola_button
+    result = @dispenser.dispense(:cola, @coin_box.total)
+    if result[:result] == :success
+      @display.show_thank_you
+    else
+      @display.show_price(result[:price])
+    end
   end
 end
