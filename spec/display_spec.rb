@@ -17,4 +17,11 @@ describe Display do
       expect(display.read).to eq('$1.15')
     end
   end
+  
+  describe "#show_price" do
+    it "should display a product price" do
+      display.show_price(0.65)
+      expect(display.read).to eq('PRICE $0.65')
+    end
+  end
 end

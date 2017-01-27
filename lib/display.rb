@@ -7,6 +7,10 @@ class Display
   def show_total_cash_inserted(total)
     @contents = "$%.2f" % [total]
   end
+  
+  def show_price(price)
+    @contents = "PRICE $%.2f" % [price]
+  end
 
   def read
     @contents
